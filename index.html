@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documentary – Real Stories, On Screen</title>
+<meta name="description" content="Documentary: a curated collection of true stories from history, nature, science and society.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0b0f; --bg2:#14141b; --card:#191922; --line:#262633;
+  --text:#ececf1; --muted:#9a9aab; --accent:#f5b73b; --accent2:#e5533d;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+/* Header */
+header{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(11,11,15,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:'Playfair Display',serif;font-weight:800;font-size:1.5rem;display:flex;align-items:center;gap:10px;letter-spacing:.5px}
+.logo i{width:12px;height:12px;border-radius:50%;background:var(--accent2);box-shadow:0 0 12px var(--accent2);display:inline-block;animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.35}}
+nav a{margin-left:24px;color:var(--muted);font-weight:500;font-size:.95rem;transition:.2s}
+nav a:hover{color:var(--accent)}
+
+/* Hero */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;
+  background:
+   radial-gradient(900px 500px at 80% 20%,rgba(245,183,59,.18),transparent 60%),
+   radial-gradient(700px 500px at 10% 90%,rgba(229,83,61,.16),transparent 60%),
+   var(--bg)}
+.hero::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.015) 0 2px,transparent 2px 4px);pointer-events:none}
+.hero .wrap{position:relative;z-index:2;padding-top:90px}
+.tag{display:inline-block;border:1px solid var(--accent);color:var(--accent);padding:3px 14px;border-radius:99px;font-size:.85rem;margin-bottom:20px;letter-spacing:1px;text-transform:uppercase}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,7vw,5.2rem);line-height:1.12;max-width:850px}
+.hero h1 span{color:var(--accent)}
+.hero p{color:var(--muted);font-size:1.15rem;max-width:560px;margin:22px 0 32px}
+.btn{display:inline-block;padding:13px 30px;border-radius:8px;font-weight:600;cursor:pointer;border:0;font-family:inherit;font-size:1rem;transition:.2s}
+.btn.primary{background:var(--accent);color:#111}
+.btn.primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,183,59,.35)}
+.btn.ghost{border:1px solid var(--line);color:var(--text);margin-left:12px}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.stats{display:flex;gap:40px;margin-top:56px;flex-wrap:wrap}
+.stats b{font-family:'Playfair Display',serif;font-size:2rem;color:var(--accent);display:block}
+.stats small{color:var(--muted)}
+
+/* Sections */
+section{padding:84px 0}
+.head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:18px;margin-bottom:34px}
+.head h2{font-family:'Playfair Display',serif;font-size:2rem}
+.head h2::after{content:"";display:block;width:56px;height:4px;background:var(--accent);margin-top:8px;border-radius:4px}
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.chip{background:var(--bg2);border:1px solid var(--line);color:var(--muted);padding:6px 16px;border-radius:99px;cursor:pointer;font-family:inherit;font-size:.9rem;transition:.2s}
+.chip:hover,.chip.on{background:var(--accent);color:#111;border-color:var(--accent)}
+#search{background:var(--bg2);border:1px solid var(--line);color:var(--text);padding:8px 16px;border-radius:99px;font-family:inherit;font-size:.9rem;outline:none;width:200px}
+#search:focus{border-color:var(--accent)}
+
+/* Grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:pointer;transition:.25s}
+.card:hover{transform:translateY(-6px);border-color:var(--accent);box-shadow:0 14px 34px rgba(0,0,0,.5)}
+.thumb{height:170px;position:relative;display:flex;align-items:center;justify-content:center}
+.thumb .play{width:54px;height:54px;border-radius:50%;background:rgba(0,0,0,.55);border:2px solid #fff;display:flex;align-items:center;justify-content:center;transition:.25s}
+.card:hover .play{background:var(--accent);border-color:var(--accent);transform:scale(1.1)}
+.play::before{content:"";border-left:16px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:4px}
+.card:hover .play::before{border-left-color:#111}
+.thumb em{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.6);font-style:normal;font-size:.75rem;padding:2px 10px;border-radius:6px}
+.thumb span{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,.7);font-size:.75rem;padding:1px 8px;border-radius:5px}
+.info{padding:16px 18px 20px}
+.info h3{font-size:1.08rem;margin-bottom:6px;line-height:1.45}
+.info p{color:var(--muted);font-size:.9rem}
+.empty{display:none;text-align:center;color:var(--muted);padding:50px 0}
+
+/* Language switcher */
+.navr{display:flex;align-items:center;gap:6px}
+#lang{margin-left:22px;background:var(--bg2);border:1px solid var(--line);color:var(--text);padding:6px 10px;border-radius:8px;font-family:inherit;font-size:.88rem;max-width:150px;outline:none;cursor:pointer}
+#lang:focus,#lang:hover{border-color:var(--accent)}
+#gt{display:none}
+.goog-te-banner-frame,iframe.skiptranslate{display:none!important}
+body{top:0!important}
+.goog-text-highlight{background:none!important;box-shadow:none!important}
+@media(max-width:620px){
+  .nav{flex-wrap:wrap;height:auto;padding:8px 0;gap:6px}
+  .navr{width:100%;justify-content:space-between}
+  #lang{margin-left:0}
+  .hero .wrap{padding-top:140px}
+}
+
+/* Mode switch */
+.switch{display:inline-flex;background:var(--bg2);border:1px solid var(--line);border-radius:99px;padding:5px;margin-bottom:30px}
+.sw{background:none;border:0;color:var(--muted);font-family:inherit;font-size:1rem;font-weight:600;padding:10px 26px;border-radius:99px;cursor:pointer;transition:.25s}
+.sw:hover{color:var(--text)}
+.sw.on{background:var(--accent);color:#111;box-shadow:0 4px 16px rgba(245,183,59,.3)}
+
+/* Articles */
+.agrid{display:none;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
+.acard{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:12px;padding:24px 24px 20px;cursor:pointer;transition:.25s}
+.acard:hover{transform:translateY(-5px);border-color:var(--accent);box-shadow:0 14px 34px rgba(0,0,0,.5)}
+.acard .ac{color:var(--accent);font-size:.78rem;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.acard h3{font-family:'Playfair Display',serif;font-size:1.3rem;line-height:1.35;margin:8px 0 10px}
+.acard p{color:var(--muted);font-size:.95rem}
+.acard .am{margin-top:16px;color:var(--accent);font-size:.88rem;font-weight:500}
+.reader .box{max-width:760px;max-height:90vh;overflow-y:auto}
+.reader .art{padding:38px 40px 44px}
+.reader .art .ac{color:var(--accent);font-size:.8rem;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.reader .art h2{font-family:'Playfair Display',serif;font-size:2rem;line-height:1.25;margin:10px 0 8px}
+.reader .art .am{color:var(--muted);font-size:.9rem;margin-bottom:26px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.reader .art p{margin-bottom:18px;font-size:1.05rem;line-height:1.85;color:#d6d6de}
+
+/* Categories */
+.cats{background:var(--bg2);border-block:1px solid var(--line)}
+.catgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+.cat{padding:28px 22px;border-radius:14px;border:1px solid var(--line);background:var(--card);transition:.25s;cursor:pointer}
+.cat:hover{border-color:var(--accent);transform:translateY(-4px)}
+.cat .ic{font-size:2rem}
+.cat h3{margin:8px 0 4px}
+.cat p{color:var(--muted);font-size:.9rem}
+
+/* About / contact */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.about p{color:var(--muted);margin-bottom:16px}
+.film{aspect-ratio:16/10;border-radius:16px;border:1px solid var(--line);
+  background:linear-gradient(135deg,#2a1d12,#10131c 55%,#1a0f12);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--accent);text-align:center;padding:20px}
+.film::before,.film::after{content:"";position:absolute;left:0;right:0;height:18px;background:repeating-linear-gradient(90deg,#000 0 14px,transparent 14px 28px);opacity:.7}
+.film::before{top:0}.film::after{bottom:0}
+form{display:grid;gap:14px;max-width:560px}
+input,textarea{background:var(--bg2);border:1px solid var(--line);color:var(--text);padding:12px 16px;border-radius:8px;font-family:inherit;font-size:1rem;outline:none}
+input:focus,textarea:focus{border-color:var(--accent)}
+footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;color:var(--muted);font-size:.9rem}
+
+/* Modal */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+.modal.open{display:flex}
+.box{width:100%;max-width:900px;background:var(--card);border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+.player{aspect-ratio:16/9;background:#000;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--muted);padding:20px}
+.player iframe{width:100%;height:100%;border:0}
+.box .meta{padding:18px 22px}
+.box .meta p{color:var(--muted);margin-top:4px}
+.close{position:absolute;top:18px;right:24px;font-size:2.2rem;color:#fff;cursor:pointer;background:none;border:0}
+
+@media(max-width:760px){
+  nav a{margin-left:14px;font-size:.88rem}
+  .about{grid-template-columns:1fr}
+  .btn.ghost{margin-left:0;margin-top:10px}
+  #search{width:100%}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="logo notranslate"><i></i>Documentary</a>
+    <div class="navr">
+      <nav>
+        <a href="#collection">Collection</a>
+        <a href="#categories">Categories</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <select id="lang" class="notranslate" aria-label="Language"></select>
+    </div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="tag">True stories • Real lives</span>
+    <h1>Real stories, <span>on screen</span></h1>
+    <p>A curated home for documentaries on history, nature, science and society, from every corner of the world.</p>
+    <a href="#collection" class="btn primary">Start Watching</a>
+    <a href="#about" class="btn ghost">Learn More</a>
+    <div class="stats">
+      <div><b>100+</b><small>Documentaries</small></div>
+      <div><b>6</b><small>Categories</small></div>
+      <div><b>Weekly</b><small>New additions</small></div>
+    </div>
+  </div>
+</div>
+
+<section id="collection">
+  <div class="wrap">
+    <div class="switch" role="tablist" aria-label="Content type">
+      <button class="sw on" data-m="video" role="tab">🎬 Videos</button>
+      <button class="sw" data-m="article" role="tab">📰 Articles</button>
+    </div>
+    <div class="head">
+      <h2>The Collection</h2>
+      <div class="tools" id="filters">
+        <input id="search" type="search" placeholder="Search…">
+        <button class="chip on" data-c="all">All</button>
+        <button class="chip" data-c="History">History</button>
+        <button class="chip" data-c="Nature">Nature</button>
+        <button class="chip" data-c="Science">Science</button>
+        <button class="chip" data-c="Society">Society</button>
+        <button class="chip" data-c="War">War</button>
+        <button class="chip" data-c="Space">Space</button>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="agrid" id="agrid"></div>
+    <div class="empty" id="empty">Nothing found. Try a different search.</div>
+  </div>
+</section>
+
+<section class="cats" id="categories">
+  <div class="wrap">
+    <div class="head"><h2>Browse by Category</h2></div>
+    <div class="catgrid">
+      <div class="cat" data-go="History"><div class="ic">🏛️</div><h3>History</h3><p>Civilizations, empires and struggles for freedom</p></div>
+      <div class="cat" data-go="Nature"><div class="ic">🌿</div><h3>Nature</h3><p>Forests, oceans and the wild world</p></div>
+      <div class="cat" data-go="Science"><div class="ic">🔬</div><h3>Science</h3><p>Discoveries and the mysteries of technology</p></div>
+      <div class="cat" data-go="Society"><div class="ic">👥</div><h3>Society</h3><p>Real portraits of people and everyday life</p></div>
+      <div class="cat" data-go="War"><div class="ic">🎖️</div><h3>War</h3><p>Conflict and the causes behind it</p></div>
+      <div class="cat" data-go="Space"><div class="ic">🚀</div><h3>Space</h3><p>The endless wonders of the universe</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about">
+    <div>
+      <div class="head"><h2>About Us</h2></div>
+      <p>Documentary is a place where true stories are gathered and beautifully organized. We believe a great documentary does more than inform. It changes the way you see the world.</p>
+      <p>Every film here is chosen for the depth of its subject, the quality of its craft and the integrity of its storytelling.</p>
+      <a href="#contact" class="btn primary">Get in Touch</a>
+    </div>
+    <div class="film">Behind every truth,<br>a camera</div>
+  </div>
+</section>
+
+<section id="contact" style="background:var(--bg2);border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="head"><h2>Contact</h2></div>
+    <p style="color:var(--muted);margin-bottom:22px">Have a documentary to suggest or feedback to share? We'd love to hear from you.</p>
+    <form onsubmit="event.preventDefault();alert('Thank you! Your message was sent (demo).');this.reset()">
+      <input required placeholder="Your name">
+      <input required type="email" placeholder="Email address">
+      <textarea required rows="4" placeholder="Your message"></textarea>
+      <button class="btn primary" type="submit">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© <span id="yr"></span> Documentary. All rights reserved.</div>
+</footer>
+
+<div class="modal reader" id="reader">
+  <button class="close" id="rclose" aria-label="Close">×</button>
+  <div class="box"><div class="art" id="art"></div></div>
+</div>
+
+<div class="modal" id="modal">
+  <button class="close" id="close" aria-label="Close">×</button>
+  <div class="box">
+    <div class="player" id="player"></div>
+    <div class="meta"><h3 id="mt"></h3><p id="md"></p></div>
+  </div>
+</div>
+
+<script>
+/*
+ ============ HOW TO ADD YOUR OWN DOCUMENTARIES ============
+ Add one line per documentary in the list below.
+ yt = the YouTube video ID.
+ Example: https://www.youtube.com/watch?v=ABC123xyz  ->  yt:"ABC123xyz"
+ Only use videos you made, have permission for, or that are
+ Creative Commons licensed.
+ If yt is left empty, the card shows "Coming soon".
+ ===========================================================
+*/
+const docs = [
+  {t:"In Search of Lost Civilizations", c:"History", d:"Ruins of ancient cities and the mysteries they hold", time:"45 min", yt:"", g:"#3b2a14,#15110c"},
+  {t:"Diary of the Deep Forest", c:"Nature", d:"Wildlife and the life cycle of the great mangroves", time:"52 min", yt:"", g:"#12361f,#0b130e"},
+  {t:"How the Universe Began", c:"Space", d:"From the Big Bang to the galaxies we see today", time:"58 min", yt:"", g:"#1b1850,#0a0a1a"},
+  {t:"The Age of Artificial Intelligence", c:"Science", d:"Are machines really learning to think?", time:"40 min", yt:"", g:"#0f3a4a,#0a1218"},
+  {t:"The Quiet People of the City", c:"Society", d:"Unspoken stories from behind urban life", time:"36 min", yt:"", g:"#4a2433,#160c11"},
+  {t:"A Dark Chapter of History", c:"War", d:"The causes, consequences and lessons of conflict", time:"1 h 10 min", yt:"", g:"#4a1c14,#150a08"},
+  {t:"Into the Abyss", c:"Nature", d:"Life in the deep ocean where light never reaches", time:"50 min", yt:"", g:"#0c3a54,#06121a"},
+  {t:"Where Rivers Write History", c:"History", d:"Civilizations that grew along the great rivers", time:"42 min", yt:"", g:"#3d3412,#14120a"},
+  {t:"The Call of the Red Planet", c:"Space", d:"Could humans one day live on Mars?", time:"48 min", yt:"", g:"#4d2312,#160b06"}
+];
+
+const grid=document.getElementById('grid'), empty=document.getElementById('empty');
+let cat='all', q='';
+
+function renderVideos(){
+  const list=docs.filter(x=>(cat==='all'||x.c===cat)&&(x.t+' '+x.d).toLowerCase().includes(q.toLowerCase()));
+  grid.innerHTML=list.map(x=>{
+    const i=docs.indexOf(x);
+    return `<div class="card" data-i="${i}">
+      <div class="thumb" style="background:linear-gradient(135deg,${x.g})">
+        <em>${x.c}</em><div class="play"></div><span>${x.time}</span>
+      </div>
+      <div class="info"><h3>${x.t}</h3><p>${x.d}</p></div></div>`;
+  }).join('');
+  empty.style.display=list.length?'none':'block';
+}
+/*
+ ============ HOW TO ADD YOUR OWN ARTICLES ============
+ Add one block per article in the list below.
+ body = a list of paragraphs. Write your own text, or text you
+ have permission to publish.
+ ======================================================
+*/
+const articles = [
+  {t:"Why Documentaries Matter More Than Ever", c:"Society", d:"In a world of fast headlines, long-form true stories still change how we see each other.", time:"4 min read", body:[
+    "We live in an age of headlines and short clips. Information moves faster than ever, yet understanding often moves slower. A documentary asks the viewer to stay with one story long enough to feel its weight.",
+    "That patience is the genre's quiet strength. By following real people over months or years, filmmakers reveal context that a single news report cannot hold: the history behind a conflict, the daily routine behind a statistic, the doubt behind a decision.",
+    "Good documentaries do not simply tell us what to think. They give us evidence, faces and time, and then trust us to reach our own conclusions. That trust is rare, and it is why the form still matters."]},
+  {t:"The Long History of Non-Fiction Film", c:"History", d:"From early street scenes to modern streaming, how documentary storytelling grew up.", time:"5 min read", body:[
+    "Almost as soon as cameras existed, people pointed them at real life: workers leaving a factory, a train arriving at a station, crowds on a busy street. These short scenes were the seeds of non-fiction cinema.",
+    "In the following decades, filmmakers began to shape real events into stories. Some explored distant cultures, some followed expeditions, and others used film to argue for social change. The word 'documentary' itself was popularised in this period.",
+    "Today the tools are in everyone's pocket, and streaming has opened global audiences to small, independent voices. The core idea, however, is unchanged: point the camera at reality and be honest about what it shows."]},
+  {t:"How Nature Films Are Really Made", c:"Nature", d:"Patience, luck and months of waiting for a few unforgettable seconds.", time:"4 min read", body:[
+    "A single minute of wildlife footage can take weeks to capture. Crews wait in hides before dawn, track animal movements for days and often return home without the shot they wanted.",
+    "Technology helps. Quiet drones, camera traps, high-speed cameras and low-light sensors let filmmakers show behaviour that was once invisible. Yet the most important tool is still patience.",
+    "Ethical crews also keep their distance. The best nature films leave the habitat undisturbed, reminding viewers that the goal is to observe the wild, not to change it."]},
+  {t:"Science on Screen: Making Hard Ideas Clear", c:"Science", d:"What filmmakers do to explain black holes, genetics and AI without losing the truth.", time:"6 min read", body:[
+    "Explaining science on film is a balancing act. Simplify too much and the idea becomes wrong; simplify too little and viewers drift away. Strong science documentaries find analogies that clarify without distorting.",
+    "Animation and visual effects play a big role. A diagram of a cell or a simulation of colliding galaxies can show in ten seconds what would take ten minutes to describe.",
+    "Just as important are the scientists themselves. When a researcher speaks honestly about what is still unknown, the film earns trust, and curiosity does the rest."]},
+  {t:"Looking Up: Why Space Still Fascinates Us", c:"Space", d:"Thousands of years of stargazing, and why the questions are only getting bigger.", time:"4 min read", body:[
+    "People have studied the night sky for thousands of years, first to keep calendars and navigate, later to ask where everything came from. Every answer has opened a larger question.",
+    "Modern telescopes now reveal galaxies so distant that their light left before Earth existed. Space missions bring back samples, images and data that reshape textbooks within a few years.",
+    "Documentaries about space work because they connect that scale to something personal. We are small, but we are the part of the universe that can ask what it is."]},
+  {t:"Telling Hard Stories About War Responsibly", c:"War", d:"How filmmakers approach conflict with care, context and respect for those involved.", time:"5 min read", body:[
+    "Documentaries about war carry a special duty. The people on screen are often at the worst moment of their lives, and the film will shape how others remember them.",
+    "Responsible filmmakers give context: how a conflict began, who was affected and what different sides say. They avoid turning suffering into spectacle and let survivors describe events in their own words.",
+    "The aim is not to shock, but to understand. A careful film can help audiences grasp the human cost of conflict and why remembering it matters."]}
+];
+
+const agrid=document.getElementById('agrid');
+let mode='video';
+
+function renderArticles(){
+  const list=articles.filter(x=>(cat==='all'||x.c===cat)&&(x.t+' '+x.d).toLowerCase().includes(q.toLowerCase()));
+  agrid.innerHTML=list.map(x=>{
+    const i=articles.indexOf(x);
+    return `<div class="acard" data-i="${i}"><span class="ac">${x.c}</span><h3>${x.t}</h3><p>${x.d}</p><div class="am">${x.time} · Read article →</div></div>`;
+  }).join('');
+  empty.style.display=list.length?'none':'block';
+}
+
+function render(){
+  const v=mode==='video';
+  grid.style.display=v?'grid':'none';
+  agrid.style.display=v?'none':'grid';
+  v?renderVideos():renderArticles();
+}
+render();
+
+document.querySelectorAll('.sw').forEach(b=>b.addEventListener('click',()=>{
+  mode=b.dataset.m;
+  document.querySelectorAll('.sw').forEach(s=>s.classList.toggle('on',s===b));
+  render();
+}));
+
+const reader=document.getElementById('reader'), art=document.getElementById('art');
+agrid.addEventListener('click',e=>{
+  const card=e.target.closest('.acard'); if(!card) return;
+  const x=articles[card.dataset.i];
+  art.innerHTML=`<span class="ac">${x.c}</span><h2>${x.t}</h2><div class="am">${x.time}</div>`+x.body.map(p=>`<p>${p}</p>`).join('');
+  reader.classList.add('open');
+  reader.querySelector('.box').scrollTop=0;
+});
+function closeR(){reader.classList.remove('open');}
+document.getElementById('rclose').onclick=closeR;
+reader.addEventListener('click',e=>{if(e.target===reader)closeR();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeR();});
+
+document.getElementById('filters').addEventListener('click',e=>{
+  const b=e.target.closest('.chip'); if(!b) return;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
+  b.classList.add('on'); cat=b.dataset.c; render();
+});
+document.getElementById('search').addEventListener('input',e=>{q=e.target.value.trim();render();});
+document.querySelectorAll('.cat').forEach(el=>el.addEventListener('click',()=>{
+  cat=el.dataset.go;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c.dataset.c===cat));
+  render(); document.getElementById('collection').scrollIntoView();
+}));
+
+const modal=document.getElementById('modal'), player=document.getElementById('player');
+grid.addEventListener('click',e=>{
+  const card=e.target.closest('.card'); if(!card) return;
+  const x=docs[card.dataset.i];
+  player.innerHTML=x.yt
+    ? `<iframe src="https://www.youtube.com/embed/${x.yt}?autoplay=1" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`
+    : `<div><div style="font-size:2.4rem">🎬</div><p>This documentary is coming soon.</p></div>`;
+  document.getElementById('mt').textContent=x.t;
+  document.getElementById('md').textContent=x.c+' • '+x.d;
+  modal.classList.add('open');
+});
+function closeM(){modal.classList.remove('open');player.innerHTML='';}
+document.getElementById('close').onclick=closeM;
+modal.addEventListener('click',e=>{if(e.target===modal)closeM();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM();});
+document.getElementById('yr').textContent=new Date().getFullYear();
+</script>
+
+<div id="gt"></div>
+<script>
+/*
+ ============ LANGUAGE SWITCH (100+ languages) ============
+ Uses the free Google Translate engine to translate the whole
+ page, including videos' titles and articles. The visitor picks
+ a language in the header; the choice is remembered.
+ Note: it works on the live website (http/https), not when the
+ file is opened directly from your computer.
+ To add or remove languages, edit the LANGS list below.
+ ==========================================================
+*/
+const LANGS=[
+ ['en','English'],['bn','বাংলা'],['hi','हिन्दी'],['ur','اردو'],['ar','العربية'],['es','Español'],['fr','Français'],
+ ['de','Deutsch'],['pt','Português'],['ru','Русский'],['zh-CN','中文 (简体)'],['zh-TW','中文 (繁體)'],['ja','日本語'],
+ ['ko','한국어'],['tr','Türkçe'],['it','Italiano'],['id','Bahasa Indonesia'],['ms','Bahasa Melayu'],['vi','Tiếng Việt'],
+ ['th','ไทย'],['fa','فارسی'],['nl','Nederlands'],['pl','Polski'],['uk','Українська'],['sv','Svenska'],['no','Norsk'],
+ ['da','Dansk'],['fi','Suomi'],['el','Ελληνικά'],['he','עברית'],['cs','Čeština'],['hu','Magyar'],['ro','Română'],
+ ['bg','Български'],['sr','Српски'],['hr','Hrvatski'],['sk','Slovenčina'],['ta','தமிழ்'],['te','తెలుగు'],['mr','मराठी'],
+ ['gu','ગુજરાતી'],['kn','ಕನ್ನಡ'],['ml','മലയാളം'],['pa','ਪੰਜਾਬੀ'],['ne','नेपाली'],['si','සිංහල'],['my','မြန်မာ'],
+ ['km','ខ្មែរ'],['lo','ລາວ'],['mn','Монгол'],['kk','Қазақша'],['uz','Oʻzbekcha'],['ps','پښتو'],['sd','سنڌي'],
+ ['sw','Kiswahili'],['am','አማርኛ'],['ha','Hausa'],['yo','Yorùbá'],['zu','isiZulu'],['af','Afrikaans'],['so','Soomaali'],
+ ['tl','Filipino'],['ka','ქართული'],['hy','Հայերեն'],['az','Azərbaycanca'],['ku','Kurdî'],['sq','Shqip'],['lt','Lietuvių'],
+ ['lv','Latviešu'],['et','Eesti'],['is','Íslenska'],['ga','Gaeilge'],['cy','Cymraeg'],['ca','Català'],['eu','Euskara'],
+ ['gl','Galego'],['mt','Malti'],['la','Latina'],['eo','Esperanto'],['ht','Kreyòl Ayisyen'],['haw','ʻŌlelo Hawaiʻi']
+];
+const sel=document.getElementById('lang');
+sel.innerHTML=LANGS.map(l=>`<option value="${l[0]}">🌐 ${l[1]}</option>`).join('');
+
+function readCookie(){
+  const m=document.cookie.match(/(?:^|;\s*)googtrans=\/[^/]*\/([^;]+)/);
+  return m?decodeURIComponent(m[1]):'en';
+}
+function clearCookie(){
+  const past='expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/';
+  document.cookie='googtrans=;'+past;
+  document.cookie='googtrans=;'+past+';domain='+location.hostname;
+  document.cookie='googtrans=;'+past+';domain=.'+location.hostname;
+}
+const cur=readCookie();
+if(LANGS.some(l=>l[0]===cur)) sel.value=cur;
+
+function googleTranslateElementInit(){
+  new google.translate.TranslateElement({pageLanguage:'en',autoDisplay:false},'gt');
+}
+
+sel.addEventListener('change',()=>{
+  const v=sel.value;
+  if(v==='en'){ clearCookie(); location.reload(); return; }
+  const apply=()=>{
+    const combo=document.querySelector('select.goog-te-combo');
+    if(!combo) return false;
+    combo.value=v;
+    combo.dispatchEvent(new Event('change'));
+    return true;
+  };
+  if(!apply()){
+    let tries=0;
+    const t=setInterval(()=>{ if(apply()||++tries>40) clearInterval(t); },250);
+  }
+});
+
+const gs=document.createElement('script');
+gs.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+gs.async=true;
+document.head.appendChild(gs);
+</script>
+</body>
+</html>
